@@ -9,7 +9,7 @@ except ImportError:
     maxminddb.extension = None
 
 from maxminddb.const import (MODE_AUTO, MODE_MMAP, MODE_MMAP_EXT, MODE_FILE,
-                             MODE_MEMORY)
+                             MODE_MEMORY, MODE_BUFFER)
 from maxminddb.decoder import InvalidDatabaseError
 
 
@@ -33,7 +33,7 @@ def open_database(database, mode=MODE_AUTO):
             raise ValueError(
                 "MODE_MMAP_EXT requires the maxminddb.extension module to be available")
         return maxminddb.extension.Reader(database)
-    elif mode in (MODE_AUTO, MODE_MMAP, MODE_FILE, MODE_MEMORY):
+    elif mode in (MODE_AUTO, MODE_MMAP, MODE_FILE, MODE_MEMORY, MODE_BUFFER):
         return maxminddb.reader.Reader(database, mode)
     raise ValueError('Unsupported open mode: {0}'.format(mode))
 
